@@ -47,9 +47,16 @@ async function submit() {
 <template>
   <div class="login-page">
     <div class="login-card card">
-      <h1 class="title">学豆</h1>
-      <p class="subtitle">StudyBean · 攒豆子，换娱乐和奖励</p>
-      <form class="form" @submit.prevent="submit">
+      <h1 class="title">
+        学豆
+      </h1>
+      <p class="subtitle">
+        StudyBean · 攒豆子，换娱乐和奖励
+      </p>
+      <form
+        class="form"
+        @submit.prevent="submit"
+      >
         <input
           v-model="email"
           type="email"
@@ -57,7 +64,7 @@ async function submit() {
           autocomplete="email"
           required
           class="input"
-        />
+        >
         <input
           v-model="password"
           type="password"
@@ -65,13 +72,26 @@ async function submit() {
           autocomplete="password"
           required
           class="input"
-        />
-        <p v-if="error" class="error-msg">{{ error }}</p>
-        <button type="submit" class="btn" :disabled="loading">
+        >
+        <p
+          v-if="error"
+          class="error-msg"
+        >
+          {{ error }}
+        </p>
+        <button
+          type="submit"
+          class="btn"
+          :disabled="loading"
+        >
           {{ loading ? '处理中…' : submitLabel }}
         </button>
       </form>
-      <button type="button" class="toggle" @click="isSignUp = !isSignUp">
+      <button
+        type="button"
+        class="toggle"
+        @click="isSignUp = !isSignUp"
+      >
         {{ isSignUp ? '已有账号？去登录' : '没有账号？去注册' }}
       </button>
     </div>
@@ -109,7 +129,8 @@ async function submit() {
 }
 .btn {
   width: 100%;
-  padding: 0.75em;
+  min-height: var(--btn-min-height, 48px);
+  padding: var(--btn-padding-y, 0.65em) var(--btn-padding-x, 1.25em);
   margin-top: var(--space-sm);
 }
 .toggle {

@@ -82,16 +82,37 @@ onMounted(async () => {
 
 <template>
   <div class="entertainment">
-    <h1 class="page-title">娱乐时间</h1>
-    <div v-if="loading" class="loading-state">加载中…</div>
+    <h1 class="page-title">
+      娱乐时间
+    </h1>
+    <div
+      v-if="loading"
+      class="loading-state"
+      role="status"
+      aria-live="polite"
+    >
+      <span
+        class="loading-state__spinner"
+        aria-hidden="true"
+      />
+      <span class="loading-state__text">加载中…</span>
+    </div>
     <template v-else>
       <div class="card balance-card">
-        <h2 class="card-title">可用娱乐时间</h2>
-        <p class="balance-value">{{ formatMinutes(availableMinutes) }}</p>
+        <h2 class="card-title">
+          可用娱乐时间
+        </h2>
+        <p class="balance-value">
+          {{ formatMinutes(availableMinutes) }}
+        </p>
       </div>
       <div class="card form-card">
-        <h2 class="card-title">记录本次使用</h2>
-        <p class="hint">刷手机、看剧等消耗的娱乐时间（分钟）</p>
+        <h2 class="card-title">
+          记录本次使用
+        </h2>
+        <p class="hint">
+          刷手机、看剧等消耗的娱乐时间（分钟）
+        </p>
         <div class="form-row">
           <input
             v-model.number="minutesToUse"
@@ -99,7 +120,7 @@ onMounted(async () => {
             min="1"
             :max="availableMinutes"
             class="input"
-          />
+          >
           <span class="unit">分钟</span>
           <button
             type="button"
@@ -109,7 +130,12 @@ onMounted(async () => {
             {{ submitting ? '提交中…' : '确认扣除' }}
           </button>
         </div>
-        <p v-if="error" class="error-msg">{{ error }}</p>
+        <p
+          v-if="error"
+          class="error-msg"
+        >
+          {{ error }}
+        </p>
       </div>
     </template>
   </div>
@@ -150,6 +176,18 @@ onMounted(async () => {
 }
 .form-row .input {
   width: 100px;
+}
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-row .input {
+    width: 100%;
+  }
+  .form-row button {
+    width: 100%;
+  }
 }
 .unit {
   color: var(--text-muted);

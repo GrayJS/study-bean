@@ -70,9 +70,27 @@ onMounted(load)
 
 <template>
   <div class="history">
-    <h1 class="page-title">历史</h1>
-    <p v-if="error" class="error-msg">{{ error }}</p>
-    <div v-if="loading" class="loading-state">加载中…</div>
+    <h1 class="page-title">
+      历史
+    </h1>
+    <p
+      v-if="error"
+      class="error-msg"
+    >
+      {{ error }}
+    </p>
+    <div
+      v-if="loading"
+      class="loading-state"
+      role="status"
+      aria-live="polite"
+    >
+      <span
+        class="loading-state__spinner"
+        aria-hidden="true"
+      />
+      <span class="loading-state__text">加载中…</span>
+    </div>
     <template v-else>
       <div class="tabs">
         <button
@@ -98,8 +116,16 @@ onMounted(load)
         </button>
       </div>
       <div class="card list-card">
-        <div v-if="tab === 'sessions'" class="list">
-          <div v-if="!sessions.length" class="empty">暂无学习记录</div>
+        <div
+          v-if="tab === 'sessions'"
+          class="list"
+        >
+          <div
+            v-if="!sessions.length"
+            class="empty"
+          >
+            暂无学习记录
+          </div>
           <div
             v-for="s in sessions"
             :key="s.id"
@@ -109,16 +135,40 @@ onMounted(load)
             <span class="value">{{ formatMinutes(s.duration_minutes) }}</span>
           </div>
         </div>
-        <div v-else-if="tab === 'entertainment'" class="list">
-          <div v-if="!entertainment.length" class="empty">暂无娱乐使用记录</div>
-          <div v-for="e in entertainment" :key="e.id" class="row">
+        <div
+          v-else-if="tab === 'entertainment'"
+          class="list"
+        >
+          <div
+            v-if="!entertainment.length"
+            class="empty"
+          >
+            暂无娱乐使用记录
+          </div>
+          <div
+            v-for="e in entertainment"
+            :key="e.id"
+            class="row"
+          >
             <span class="date">{{ formatDate(e.created_at) }}</span>
             <span class="value">− {{ e.minutes }} 分钟</span>
           </div>
         </div>
-        <div v-else class="list">
-          <div v-if="!redemptions.length" class="empty">暂无兑换记录</div>
-          <div v-for="r in redemptions" :key="r.id" class="row">
+        <div
+          v-else
+          class="list"
+        >
+          <div
+            v-if="!redemptions.length"
+            class="empty"
+          >
+            暂无兑换记录
+          </div>
+          <div
+            v-for="r in redemptions"
+            :key="r.id"
+            class="row"
+          >
             <span class="date">{{ formatDate(r.created_at) }}</span>
             <span class="value">{{ r.rewards?.name || '礼物' }} − {{ r.cost_minutes }} 分钟</span>
           </div>
@@ -136,12 +186,20 @@ onMounted(load)
   display: flex;
   gap: var(--space-xs);
   margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
 }
 .tab {
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--btn-padding-y, 0.65em) var(--space-md);
   background: var(--surface);
   color: var(--text-muted);
   border: 1px solid var(--border);
+  min-height: var(--btn-min-height, 48px);
+  touch-action: manipulation;
+}
+@media (max-width: 768px) {
+  .tabs {
+    gap: var(--space-sm);
+  }
 }
 .tab.active {
   background: var(--primary-subtle);

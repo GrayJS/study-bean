@@ -119,29 +119,77 @@ onMounted(async () => {
 
 <template>
   <div class="store">
-    <h1 class="page-title">礼物商店</h1>
-    <p v-if="error" class="error-msg">{{ error }}</p>
-    <div v-if="loading" class="loading-state">加载中…</div>
+    <h1 class="page-title">
+      礼物商店
+    </h1>
+    <p
+      v-if="error"
+      class="error-msg"
+    >
+      {{ error }}
+    </p>
+    <div
+      v-if="loading"
+      class="loading-state"
+      role="status"
+      aria-live="polite"
+    >
+      <span
+        class="loading-state__spinner"
+        aria-hidden="true"
+      />
+      <span class="loading-state__text">加载中…</span>
+    </div>
     <template v-else>
       <div class="card balance-card">
-        <h2 class="card-title">可用于兑换的学习时间</h2>
-        <p class="balance-value">{{ formatMinutes(availableMinutes) }}</p>
+        <h2 class="card-title">
+          可用于兑换的学习时间
+        </h2>
+        <p class="balance-value">
+          {{ formatMinutes(availableMinutes) }}
+        </p>
       </div>
       <div class="card form-card">
-        <h2 class="card-title">添加礼物</h2>
+        <h2 class="card-title">
+          添加礼物
+        </h2>
         <div class="form-row">
-          <input v-model="newName" type="text" placeholder="礼物名称" class="input" />
-          <input v-model.number="newCost" type="number" min="1" placeholder="所需分钟" class="input input-num" />
+          <input
+            v-model="newName"
+            type="text"
+            placeholder="礼物名称"
+            class="input"
+          >
+          <input
+            v-model.number="newCost"
+            type="number"
+            min="1"
+            placeholder="所需分钟"
+            class="input input-num"
+          >
           <span class="unit">分钟</span>
-          <button type="button" :disabled="adding" @click="addReward">
+          <button
+            type="button"
+            :disabled="adding"
+            @click="addReward"
+          >
             {{ adding ? '添加中…' : '添加' }}
           </button>
         </div>
       </div>
       <div class="card list-card">
-        <h2 class="card-title">我的礼物列表</h2>
-        <ul v-if="rewards.length" class="reward-list">
-          <li v-for="r in rewards" :key="r.id" class="reward-item">
+        <h2 class="card-title">
+          我的礼物列表
+        </h2>
+        <ul
+          v-if="rewards.length"
+          class="reward-list"
+        >
+          <li
+            v-for="r in rewards"
+            :key="r.id"
+            class="reward-item"
+          >
             <span class="reward-name">{{ r.name }}</span>
             <span class="reward-cost">{{ r.cost_study_minutes }} 分钟</span>
             <div class="reward-actions">
@@ -153,11 +201,22 @@ onMounted(async () => {
               >
                 兑换
               </button>
-              <button type="button" class="btn-remove" @click="removeReward(r.id)">删除</button>
+              <button
+                type="button"
+                class="btn-remove"
+                @click="removeReward(r.id)"
+              >
+                删除
+              </button>
             </div>
           </li>
         </ul>
-        <p v-else class="empty">暂无礼物，请先添加</p>
+        <p
+          v-else
+          class="empty"
+        >
+          暂无礼物，请先添加
+        </p>
       </div>
     </template>
   </div>
@@ -193,6 +252,28 @@ onMounted(async () => {
 }
 .input-num {
   width: 90px;
+}
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-row .input,
+  .form-row .input-num {
+    width: 100%;
+  }
+  .form-row button {
+    width: 100%;
+  }
+  .reward-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .reward-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
 .unit {
   color: var(--text-muted);

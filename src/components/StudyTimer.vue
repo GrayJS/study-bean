@@ -80,13 +80,32 @@ onUnmounted(() => {
 
 <template>
   <div class="timer card">
-    <h2 class="card-title">学习计时</h2>
-    <p class="time-display">{{ displayTime }}</p>
+    <h2 class="card-title">
+      学习计时
+    </h2>
+    <p class="time-display">
+      {{ displayTime }}
+    </p>
     <div class="actions">
-      <button v-if="!running" type="button" @click="start">开始</button>
+      <button
+        v-if="!running"
+        type="button"
+        @click="start"
+      >
+        开始
+      </button>
       <template v-else>
-        <button type="button" @click="pause">暂停</button>
-        <button type="button" :disabled="saving || elapsedSeconds < 30" @click="finish">
+        <button
+          type="button"
+          @click="pause"
+        >
+          暂停
+        </button>
+        <button
+          type="button"
+          :disabled="saving || elapsedSeconds < 30"
+          @click="finish"
+        >
           {{ saving ? '保存中…' : '结束并保存' }}
         </button>
       </template>
@@ -109,5 +128,14 @@ onUnmounted(() => {
   gap: var(--space-sm);
   justify-content: center;
   flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .time-display {
+    font-size: 2.2rem;
+  }
+  .actions button {
+    min-width: 110px;
+    padding: var(--btn-padding-y, 0.65em) var(--btn-padding-x, 1.25em);
+  }
 }
 </style>

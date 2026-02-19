@@ -74,29 +74,63 @@ onMounted(async () => {
 
 <template>
   <div class="home">
-    <h1 class="page-title">首页</h1>
-    <p v-if="error" class="error-msg">{{ error }}</p>
-    <div v-if="loading" class="loading-state">加载中…</div>
+    <h1 class="page-title">
+      首页
+    </h1>
+    <p
+      v-if="error"
+      class="error-msg"
+    >
+      {{ error }}
+    </p>
+    <div
+      v-if="loading"
+      class="loading-state"
+      role="status"
+      aria-live="polite"
+    >
+      <span
+        class="loading-state__spinner"
+        aria-hidden="true"
+      />
+      <span class="loading-state__text">加载中…</span>
+    </div>
     <template v-else>
       <section class="section">
         <StudyTimer @saved="loadSums" />
       </section>
       <section class="section cards">
         <div class="card balance-card">
-          <h2 class="card-title">可用娱乐时间</h2>
-          <p class="balance-value">{{ formatMinutes(availableEntertainmentMinutes) }}</p>
-          <p class="card-hint">学习时间 × 比例 − 已使用</p>
+          <h2 class="card-title">
+            可用娱乐时间
+          </h2>
+          <p class="balance-value">
+            {{ formatMinutes(availableEntertainmentMinutes) }}
+          </p>
+          <p class="card-hint">
+            学习时间 × 比例 − 已使用
+          </p>
         </div>
         <div class="card balance-card">
-          <h2 class="card-title">可兑换礼物（学习时间）</h2>
-          <p class="balance-value">{{ formatMinutes(availableRewardMinutes) }}</p>
-          <p class="card-hint">累计学习 − 已兑换</p>
+          <h2 class="card-title">
+            可兑换礼物（学习时间）
+          </h2>
+          <p class="balance-value">
+            {{ formatMinutes(availableRewardMinutes) }}
+          </p>
+          <p class="card-hint">
+            累计学习 − 已兑换
+          </p>
         </div>
       </section>
       <section class="section">
         <div class="card">
-          <h2 class="card-title">累计学习时间</h2>
-          <p class="balance-value">{{ formatMinutes(totalStudyMinutes) }}</p>
+          <h2 class="card-title">
+            累计学习时间
+          </h2>
+          <p class="balance-value">
+            {{ formatMinutes(totalStudyMinutes) }}
+          </p>
         </div>
       </section>
     </template>
@@ -116,6 +150,15 @@ onMounted(async () => {
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: var(--space-lg);
 }
+@media (max-width: 768px) {
+  .home .section {
+    margin-bottom: var(--space-lg);
+  }
+  .cards {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
 .balance-card .balance-value {
   font-size: 1.5rem;
   font-weight: 700;
@@ -132,8 +175,5 @@ onMounted(async () => {
   font-size: 0.85rem;
   color: var(--text-muted);
   margin: 0;
-}
-.loading-state {
-  color: var(--text-muted);
 }
 </style>
